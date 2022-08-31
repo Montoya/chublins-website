@@ -5,10 +5,47 @@ body {
   font-family: 'Nunito', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #181b26; 
+  color:#fff; 
 }
 
 h1, h2, h3, h4, h5, h6 { 
   font-family: 'Short Stack', cursive; 
+}
+
+a, a:link, a:visited { 
+  color:#0be881; 
+}
+a:focus, a:hover { 
+  color:#ffdd59; 
+}
+a:active { 
+  color:#778ca3;
+}
+
+nav>div, .Page { 
+  max-width:760px;
+  margin:0 auto; 
+}
+
+nav { 
+  padding:2rem 0 0.5rem; 
+}
+nav>div>*{
+  display:inline-block;
+}
+h1 { 
+  font-size:2rem; 
+  margin:0 2rem 0 0.4rem;
+}
+.Chublin-logo { 
+  width:4rem;
+  height:4rem;
+  vertical-align:middle;
+  margin-top:-1.5rem;
+}
+nav a { 
+  padding-right:1rem;
 }
 
 code {
