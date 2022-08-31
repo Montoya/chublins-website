@@ -12,6 +12,9 @@ body {
 h1, h2, h3, h4, h5, h6 { 
   font-family: 'Short Stack', cursive; 
 }
+ul { 
+  padding-left:1rem;
+}
 
 a, a:link, a:visited { 
   color:#0be881; 

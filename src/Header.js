@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom"; 
 import hexagon from './hexagon.svg';
 
+// removed: <NavLink to="whitepaper">Whitepaper</NavLink>
 const Header = () => {
   return (
     <nav>
@@ -9,7 +10,6 @@ const Header = () => {
         <h1>Chublins</h1>
         <NavLink to="/">Mint</NavLink>
         <NavLink to="guide">Guide</NavLink>
-        <NavLink to="whitepaper">Whitepaper</NavLink>
       </div>
     </nav>
   ); 

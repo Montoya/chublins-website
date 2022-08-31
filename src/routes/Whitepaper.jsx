@@ -1,7 +1,7 @@
 export default function Whitepaper() { 
   return (
     <div class="Page">
-      Whitepaper coming soon!
+      A whitepaper will be published soon with a deeper explanation of the contract functions.
     </div>
   )
 }; 
