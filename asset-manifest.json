@@ -1,16 +1,22 @@
 {
   "files": {
-    "main.css": "/chublins-website/static/css/main.073c9b0a.css",
-    "main.js": "/chublins-website/static/js/main.9740f268.js",
+    "main.css": "/chublins-website/static/css/main.5526af95.css",
+    "main.js": "/chublins-website/static/js/main.b0eee882.js",
+    "static/js/563.a17b5355.chunk.js": "/chublins-website/static/js/563.a17b5355.chunk.js",
+    "static/js/942.a487b2b7.chunk.js": "/chublins-website/static/js/942.a487b2b7.chunk.js",
     "static/js/787.23311aa3.chunk.js": "/chublins-website/static/js/787.23311aa3.chunk.js",
-    "static/media/logo.svg": "/chublins-website/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "static/js/419.d95b20c7.chunk.js": "/chublins-website/static/js/419.d95b20c7.chunk.js",
+    "static/js/163.bba58075.chunk.js": "/chublins-website/static/js/163.bba58075.chunk.js",
+    "static/media/logo.svg": "/chublins-website/static/media/logo.e1ebc31e937ab9981bffa9430e0d7c24.svg",
     "index.html": "/chublins-website/index.html",
-    "main.073c9b0a.css.map": "/chublins-website/static/css/main.073c9b0a.css.map",
-    "main.9740f268.js.map": "/chublins-website/static/js/main.9740f268.js.map",
-    "787.23311aa3.chunk.js.map": "/chublins-website/static/js/787.23311aa3.chunk.js.map"
+    "main.5526af95.css.map": "/chublins-website/static/css/main.5526af95.css.map",
+    "main.b0eee882.js.map": "/chublins-website/static/js/main.b0eee882.js.map",
+    "787.23311aa3.chunk.js.map": "/chublins-website/static/js/787.23311aa3.chunk.js.map",
+    "419.d95b20c7.chunk.js.map": "/chublins-website/static/js/419.d95b20c7.chunk.js.map",
+    "163.bba58075.chunk.js.map": "/chublins-website/static/js/163.bba58075.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.9740f268.js"
+    "static/css/main.5526af95.css",
+    "static/js/main.b0eee882.js"
   ]
 }
