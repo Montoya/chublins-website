@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { WagmiConfig, createClient, useAccount } from "wagmi";
 import { ConnectKitProvider, ConnectKitButton, getDefaultClient } from "connectkit";
 
@@ -17,8 +18,16 @@ const ConnectedWallet = () => {
   return <p>Connected Wallet: {address}</p>;
 }; 
 
+// useEffect technique found here: https://bobbyhadz.com/blog/react-add-class-to-body-element
 export default function Mint() { 
   return (
+    useEffect(() => {
+      document.body.classList.add('mint');
+
+      return () => { 
+        document.body.classList.remove('mint');
+      }
+    }, []),
     <WagmiConfig client={client}>
       <ConnectKitProvider theme="rounded" options={{embedGoogleFonts: true,}}>
         <div className="Page">

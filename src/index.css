@@ -5,8 +5,14 @@ body {
   font-family: 'Nunito', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #181b26; 
-  color:#fff; 
+  background: #181b26;
+  color:#fff;
+  padding-bottom:36px;  
+}
+body.mint { 
+  background: #181b26 url(/public/chublins-bg.png) bottom center no-repeat fixed; 
+  background-size:1050px 260px; 
+  padding-bottom:250px;  
 }
 
 h1, h2, h3, h4, h5, h6 { 
