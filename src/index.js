@@ -6,6 +6,7 @@ import App from './App';
 import Guide from './routes/Guide'; 
 import Whitepaper from './routes/Whitepaper'; 
 import Mint from './routes/Mint'; 
+import Soldout from './routes/Soldout';
 import Secret from './routes/Secret';
 import View from './routes/View'; 
 import Token from './routes/Token'; 
@@ -18,6 +19,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Mint />} />
+          <Route path="soldout" element={<Soldout />} />
           <Route path="guide" element={<Guide />} />
           <Route path="view" element={<View />}>
             <Route path=":tokenId" element={<Token />} />

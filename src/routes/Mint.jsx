@@ -23,7 +23,6 @@ export default function Mint() {
   return (
     useEffect(() => {
       document.body.classList.add('mint');
-
       return () => { 
         document.body.classList.remove('mint');
       }

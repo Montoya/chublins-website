@@ -74,3 +74,33 @@ code {
 #mintButton { 
   margin-left:1rem; 
 }
+
+.chublinCard { 
+  float:left;
+  width:300px; 
+}
+.chublinDashboard { 
+  float:left;
+  width:436px; 
+  margin-left:24px; 
+}
+.chublinTraitsContainer dl { 
+  overflow:hidden;
+}
+.chublinTraitsContainer dt, .chublinTraitsContainer dd { 
+  float:left; 
+  width:140px; 
+  padding-bottom:0.25rem;
+}
+.chublinTraitsContainer dd { 
+  margin-left:18px;
+}
+.chublinTraitsContainer dd::first-letter { 
+  text-transform:uppercase;
+}
+.chublinOwnerInfo { 
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  width:80%;
+}

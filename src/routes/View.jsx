@@ -14,8 +14,7 @@ const contractConfig = {
 };
 
 const blockscanner = 'rinkeby.etherscan.io'; 
-
-let totalSupply = 0; 
+let maxTokens = 1; 
 
 const client = createClient(
   getDefaultClient({
@@ -31,8 +30,9 @@ const TotalSupply = () => {
     contractInterface: contractConfig.contractInterface,
     functionName: 'totalSupply'
   }); 
-  totalSupply = parseInt(data); 
+  const totalSupply = parseInt(data); 
   if(isSuccess && totalSupply > 0) { 
+    maxTokens = totalSupply - 1; 
     return <p>{totalSupply} Chublins have been born of the blockchain!</p>
   }
   else { 
@@ -53,7 +53,7 @@ const ViewButton = () => {
   }; 
   return (
     <p>
-      <input id="tokenToView" className="numberInput" type="number" min="0" max={totalSupply-1} value={tokenId} onChange={handleNumberInput}/> 
+      <input id="tokenToView" className="numberInput" type="number" min="0" max={maxTokens} value={tokenId} onChange={handleNumberInput}/> 
       <button id="viewButton" className="inlineButton" onClick={handleViewAction}>View</button>
     </p>
   )

@@ -35,7 +35,7 @@ const MintProgress = () => {
     functionName: 'totalSupply'
   }); 
   const totalSupply = parseInt(data); 
-  if(totalSupply==8888) { 
+  if(totalSupply===4444) { 
     return (
       <p>
         <Navigate to="/soldout" />
@@ -45,7 +45,7 @@ const MintProgress = () => {
   else { 
     return (
       <p>
-        Total minted: {totalSupply} of 8,888
+        Total minted: {totalSupply} of 4,444
       </p>
     )
   }
@@ -54,7 +54,7 @@ const MintProgress = () => {
 const MintButton = () => {
   const { isDisconnected } = useAccount();
   const [amount, setAmount] = useState(1); 
-  const mintPrice = ethers.utils.parseEther("0.024"); 
+  const mintPrice = ethers.utils.parseEther("0.01"); 
 
   const { 
     config, 
@@ -80,7 +80,7 @@ const MintButton = () => {
   return (
     <div>
       <input id="mintQuantity" className="numberInput" type="number" min="1" max="10" value={amount} onChange={handleNumberInput}/> 
-      for {24 * amount / 1000} ETH 
+      for {1 * amount / 100} ETH 
       <button id="mintButton" className="inlineButton" disabled={isDisconnected||!write} onClick={() => write?.({args: [amount]})}>
         {isLoading ? 'Minting...' : 'Mint!'}
       </button>
@@ -94,6 +94,16 @@ const MintButton = () => {
       )}
     </div>
   )
+}
+
+const FirstStep = () => {
+  const { isDisconnected } = useAccount();
+  return <p>{isDisconnected?"First, connect your wallet:":"Wallet connected!"}</p>; 
+}
+
+const SecondStep = () => {
+  const { isDisconnected } = useAccount();
+  return <p>{isDisconnected?"Then":"Now"}, select your quantity and click to mint! <em>Max 10 per transaction.</em></p>
 }
 
 
@@ -111,9 +121,9 @@ export default function Secret() {
         <div className="Page">
           <h2>Mint is now open!</h2>
           <MintProgress />
-          <p>First, connect your wallet:</p>
+          <FirstStep />
           <ConnectKitButton showBalance="true" />
-          <p>Then, select your quantity and click to mint! <em>Max 10 per transaction.</em></p>
+          <SecondStep />
           <MintButton />
         </div>
       </ConnectKitProvider>
