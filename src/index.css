@@ -61,3 +61,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#mintQuantity { 
+  margin-right:0.5rem; 
+  font-size:12pt; 
+}
+#mintButton { 
+  margin-left:1rem; 
+  font-size:12pt; 
+}
