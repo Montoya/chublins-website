@@ -36,13 +36,23 @@ const useGetOwner = (tokenId) => {
   }
 }
 
-const ManageToken = (tokenId, ownerAddress, userAddress) => {
-  return (
-    <>
-      <h3>Manage</h3>
-      <p><em>Chublin management interface is coming soon</em></p>
-    </>
-  )
+const ManageToken = (props) => {
+  if(props.ownerAddress == props.userAddress) { 
+    return (
+      <>
+        <h3>Manage</h3>
+        <p>You are the owner of this Chublin! <em>Management features are coming soon...</em></p>
+      </>
+    )
+  }
+  else { 
+    return (
+      <>
+        <h3>Manage</h3>
+        <p>You are not the owner of this Chublin, so you cannot manage it!</p>
+      </>
+    )
+  }
 }
 
 export default function Token() { 
@@ -61,6 +71,7 @@ export default function Token() {
     const tokenJSON = JSON.parse(tokenJSONString); 
     const tokenName = "Chublin #"+tokenId;  
     const imageType = tokenJSON.image.charAt(0)=='h' ? "PNG" : "SVG"; 
+    let licenseStatus = "ARR"; 
     const openSeaURL = "https://opensea.io/assets/ethereum/"+contractConfig.addressOrName+"/"+tokenId; 
     const looksRareURL = "https://looksrare.org/collections/"+contractConfig.addressOrName+"/"+tokenId; 
     return (
@@ -71,10 +82,11 @@ export default function Token() {
           </p>
           <div className="chublinTraitsContainer">
             <dl>
-              <dt>Image Type</dt><dd>{imageType}</dd>
+              <dt key="dt">Image Type</dt><dd key="dd">{imageType}</dd>
               {tokenJSON.attributes.map((pair, i) => {
+                if(pair.trait_type=="License") { licenseStatus = pair.value; }
                 return (
-                  <><dt>{pair.trait_type}</dt><dd>{pair.value}</dd></>
+                  <><dt key={`dt${i}`}>{pair.trait_type}</dt><dd key={`dd${i}`}>{pair.value}</dd></>
                 )
               })}
             </dl>
@@ -86,7 +98,12 @@ export default function Token() {
           <p>Is this your Chublin? Connect to manage it:</p>
           <ConnectKitButton />
           {!isDisconnected && (
-            <ManageToken />
+            <ManageToken 
+              ownerAddress={tokenOwner} 
+              userAddress={address} 
+              tokenId={tokenId} 
+              license={licenseStatus} 
+              imageType={imageType} />
           )}
         </div>
       </div>
