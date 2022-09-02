@@ -18,14 +18,12 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<Mint />} />
-          <Route path="soldout" element={<Soldout />} />
+          <Route index element={<Soldout />} />
           <Route path="guide" element={<Guide />} />
           <Route path="view" element={<View />}>
             <Route path=":tokenId" element={<Token />} />
           </Route>
           <Route path="whitepaper" element={<Whitepaper />} />
-          <Route path="secret" element={<Secret />} />
         </Route>
       </Routes>
     </BrowserRouter>

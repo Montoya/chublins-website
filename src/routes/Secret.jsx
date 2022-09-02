@@ -14,17 +14,17 @@ import { ConnectKitProvider, ConnectKitButton, getDefaultClient } from "connectk
 import abiFile from '../abiFile.json';
 
 const contractConfig = {
-  addressOrName: '0x32A8BC93ca0E1b7eb3c282F8DDEC9e5cd9e898a5',
+  addressOrName: '0x274E920503d5abfC8113a273bDBF2069C729c9cD',
   contractInterface: abiFile,
 };
 
-const blockscanner = 'rinkeby.etherscan.io'; 
+const blockscanner = 'etherscan.io'; 
 
 const client = createClient(
   getDefaultClient({
     appName: "Chublins",
     infuraId: process.env.INFURA_ID, 
-    chains: [chain.rinkeby]
+    chains: [chain.mainnet]
   }), 
 ); 
 
