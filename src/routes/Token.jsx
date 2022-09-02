@@ -4,6 +4,7 @@ import {
   WagmiConfig, 
   createClient, 
   useContractRead, 
+  useAccount, 
   chain } from "wagmi";
 import { ConnectKitButton, getDefaultClient } from "connectkit";
 import abiFile from '../abiFile.json';
@@ -35,8 +36,18 @@ const useGetOwner = (tokenId) => {
   }
 }
 
+const ManageToken = (tokenId, ownerAddress, userAddress) => {
+  return (
+    <>
+      <h3>Manage</h3>
+      <p><em>Chublin management interface is coming soon</em></p>
+    </>
+  )
+}
+
 export default function Token() { 
   const { tokenId } = useParams(); 
+  const { address, isDisconnected } = useAccount(); 
   const { data, isSuccess } = useContractRead({
     ...contractConfig, 
     functionName: 'tokenURI', 
@@ -72,8 +83,11 @@ export default function Token() {
         <div className="chublinDashboard">
           <p className="chublinOwnerInfo">Owner: <span className="chublinOwnerAddress">{tokenOwner}</span></p>
           <p><a href={openSeaURL}>View on OpenSea</a> | <a href={looksRareURL}>View on LooksRare</a></p>
-          <h3>Manage</h3>
-          <p><em>Chublin management interface is coming soon</em></p>
+          <p>Is this your Chublin? Connect to manage it:</p>
+          <ConnectKitButton />
+          {!isDisconnected && (
+            <ManageToken />
+          )}
         </div>
       </div>
     )
