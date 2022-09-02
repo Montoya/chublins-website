@@ -6,7 +6,9 @@ import App from './App';
 import Guide from './routes/Guide'; 
 import Whitepaper from './routes/Whitepaper'; 
 import Mint from './routes/Mint'; 
-import Test from './routes/Test';
+import Secret from './routes/Secret';
+import View from './routes/View'; 
+import Token from './routes/Token'; 
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,8 +19,11 @@ root.render(
         <Route path="/" element={<App />}>
           <Route index element={<Mint />} />
           <Route path="guide" element={<Guide />} />
+          <Route path="view" element={<View />}>
+            <Route path=":tokenId" element={<Token />} />
+          </Route>
           <Route path="whitepaper" element={<Whitepaper />} />
-          <Route path="test" element={<Test />} />
+          <Route path="secret" element={<Secret />} />
         </Route>
       </Routes>
     </BrowserRouter>

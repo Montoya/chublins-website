@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom"; 
+import { ethers } from "ethers"; 
 import { 
   WagmiConfig, 
   createClient, 
@@ -13,9 +14,11 @@ import { ConnectKitProvider, ConnectKitButton, getDefaultClient } from "connectk
 import abiFile from '../abiFile.json';
 
 const contractConfig = {
-  addressOrName: '0x370a10B97109be720D7ac515B2aa3a8dBF25eb47',
+  addressOrName: '0x32A8BC93ca0E1b7eb3c282F8DDEC9e5cd9e898a5',
   contractInterface: abiFile,
 };
+
+const blockscanner = 'rinkeby.etherscan.io'; 
 
 const client = createClient(
   getDefaultClient({
@@ -51,16 +54,19 @@ const MintProgress = () => {
 const MintButton = () => {
   const { isDisconnected } = useAccount();
   const [amount, setAmount] = useState(1); 
+  const mintPrice = ethers.utils.parseEther("0.024"); 
 
   const { 
     config, 
     error: prepareError, 
     isError: isPrepareError, 
   } = usePrepareContractWrite({
-    addressOrName: '0xaf0326d92b97df1221759476b072abfd8084f9be', // '0x370a10B97109be720D7ac515B2aa3a8dBF25eb47', 
-    contractInterface: ['function mint()'], 
+    ...contractConfig, 
     functionName: 'mint', 
-    args: [] // [amount]
+    args: amount, 
+    overrides: { 
+      value:mintPrice.mul(amount)
+    }
   }); 
   const { data, error, isError, write } = useContractWrite(config); 
 
@@ -73,14 +79,14 @@ const MintButton = () => {
   }; 
   return (
     <div>
-      <input id="mintQuantity" type="number" min="1" max="10" value={amount} onChange={handleNumberInput}/> 
-      {amount} for {24 * amount / 1000} ETH 
-      <button id="mintButton" disabled={isDisconnected||!write} onClick={() => write?.()}>
+      <input id="mintQuantity" className="numberInput" type="number" min="1" max="10" value={amount} onChange={handleNumberInput}/> 
+      for {24 * amount / 1000} ETH 
+      <button id="mintButton" className="inlineButton" disabled={isDisconnected||!write} onClick={() => write?.({args: [amount]})}>
         {isLoading ? 'Minting...' : 'Mint!'}
       </button>
       {isSuccess && (
         <p>
-          Successfully minted your NFT! View on <a href={`https://etherscan.io/tx/${data?.hash}`}>Etherscan</a>
+          Successfully minted your Chublins! View on <a href={`https://${blockscanner}/tx/${data?.hash}`}>Etherscan</a>
         </p>
       )}
       {(isPrepareError || isError) && (
@@ -92,7 +98,7 @@ const MintButton = () => {
 
 
 // useEffect technique found here: https://bobbyhadz.com/blog/react-add-class-to-body-element
-export default function Test() { 
+export default function Secret() { 
   return (
     useEffect(() => {
       document.body.classList.add('mint'); 
@@ -106,7 +112,7 @@ export default function Test() {
           <h2>Mint is now open!</h2>
           <MintProgress />
           <p>First, connect your wallet:</p>
-          <ConnectKitButton />
+          <ConnectKitButton showBalance="true" />
           <p>Then, select your quantity and click to mint! <em>Max 10 per transaction.</em></p>
           <MintButton />
         </div>

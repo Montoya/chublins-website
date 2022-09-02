@@ -62,11 +62,15 @@ code {
     monospace;
 }
 
-#mintQuantity { 
+.numberInput, .inlineButton { line-height:1.5; font-size:12pt; }
+.numberInput { 
   margin-right:0.5rem; 
-  font-size:12pt; 
+  width:4rem; 
+}
+#mintQuantity { 
+  width:3rem;
+  text-indent:0.5rem;
 }
 #mintButton { 
   margin-left:1rem; 
-  font-size:12pt; 
 }
