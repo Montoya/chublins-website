@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.css';
 import App from './App';
-import Update from './routes/Update'; /*
+import Update from './routes/Update'; 
+import Secret from './routes/Secret';/*
 import Guide from './routes/Guide'; 
 import Whitepaper from './routes/Whitepaper'; 
 import Mint from './routes/Mint'; 
 import Soldout from './routes/Soldout';
-import Secret from './routes/Secret';
+
 import View from './routes/View'; 
 import Token from './routes/Token'; */
 import reportWebVitals from './reportWebVitals';
@@ -19,7 +20,8 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<Update />} />
+          <Route index element={<Update />}/>
+          <Route path="guide" element={<Secret />}/>
         </Route>
       </Routes>
     </BrowserRouter>

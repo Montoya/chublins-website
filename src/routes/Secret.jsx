@@ -14,7 +14,7 @@ import { ConnectKitProvider, ConnectKitButton, getDefaultClient } from "connectk
 import abiFile from '../abiFile.json';
 
 const contractConfig = {
-  addressOrName: '0x274E920503d5abfC8113a273bDBF2069C729c9cD',
+  addressOrName: '0x7034285f97FC9e3550fd7C041C32B7b4Bf7159C0',
   contractInterface: abiFile,
 };
 
@@ -24,7 +24,7 @@ const client = createClient(
   getDefaultClient({
     appName: "Chublins",
     infuraId: process.env.INFURA_ID, 
-    chains: [chain.mainnet]
+    chains: [chain.rinkeby]
   }), 
 ); 
 
@@ -35,7 +35,7 @@ const MintProgress = () => {
     functionName: 'totalSupply'
   }); 
   const totalSupply = parseInt(data); 
-  if(totalSupply===4444) { 
+  if(totalSupply===5556) { 
     return (
       <p>
         <Navigate to="/soldout" />
@@ -45,7 +45,7 @@ const MintProgress = () => {
   else { 
     return (
       <p>
-        Total minted: {totalSupply} of 4,444
+        Total minted: {totalSupply} of 5,556
       </p>
     )
   }
@@ -79,9 +79,10 @@ const MintButton = () => {
   }; 
   return (
     <div>
-      <input id="mintQuantity" className="numberInput" type="number" min="1" max="10" value={amount} onChange={handleNumberInput}/> 
-      for {1 * amount / 100} ETH 
-      <button id="mintButton" className="inlineButton" disabled={isDisconnected||!write} onClick={() => write?.({args: [amount]})}>
+      <button id="mintButton" className="inlineButton" disabled={isDisconnected||!write} onClick={() => write?.({args: [1]})}>
+        {isLoading ? 'Minting...' : 'Mint!'}
+      </button> 
+      <button id="mintTwoButton" className="inlineButton" disabled={isDisconnected||!write} onClick={() => write?.({args: [2]})}>
         {isLoading ? 'Minting...' : 'Mint!'}
       </button>
       {isSuccess && (
@@ -103,7 +104,7 @@ const FirstStep = () => {
 
 const SecondStep = () => {
   const { isDisconnected } = useAccount();
-  return <p>{isDisconnected?"Then":"Now"}, select your quantity and click to mint! <em>Max 10 per transaction.</em></p>
+  return <p>{isDisconnected?"Then":"Now"}, click to mint 1 or 2! <em>Max 2 per wallet.</em></p>
 }
 
 
