@@ -7,53 +7,53 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #181b26;
   color:#fff;
-  padding-bottom:36px;  
+  padding-bottom:36px;
 }
-body.mint { 
-  background: #181b26 url(/public/chublins-bg.png) bottom center no-repeat fixed; 
-  background-size:1050px 260px; 
-  padding-bottom:250px;  
+body.mint {
+  background: #181b26 url(/public/chublins-bg.png) bottom center no-repeat fixed;
+  background-size:1050px 260px;
+  padding-bottom:250px;
 }
 
-h1, h2, h3, h4, h5, h6 { 
-  font-family: 'Short Stack', cursive; 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Short Stack', cursive;
 }
-ul { 
+ul {
   padding-left:1rem;
 }
 
-a, a:link, a:visited { 
-  color:#0be881; 
+a, a:link, a:visited {
+  color:#0be881;
 }
-a:focus, a:hover { 
-  color:#ffdd59; 
+a:focus, a:hover {
+  color:#ffdd59;
 }
-a:active { 
+a:active {
   color:#778ca3;
 }
 
-nav>div, .Page { 
+nav>div, .Page {
   max-width:760px;
-  margin:0 auto; 
+  margin:0 auto;
 }
 
-nav { 
-  padding:2rem 0 0.5rem; 
+nav {
+  padding:2rem 0 0.5rem;
 }
 nav>div>*{
   display:inline-block;
 }
-h1 { 
-  font-size:2rem; 
+h1 {
+  font-size:2rem;
   margin:0 2rem 0 0.4rem;
 }
-.Chublin-logo { 
+.Chublin-logo {
   width:4rem;
   height:4rem;
   vertical-align:middle;
   margin-top:-1.5rem;
 }
-nav a { 
+nav a {
   padding-right:1rem;
 }
 
@@ -63,42 +63,43 @@ code {
 }
 
 .numberInput, .inlineButton { line-height:1.5; font-size:12pt; }
-.numberInput { 
-  margin-right:0.5rem; 
-  width:4rem; 
+.numberInput {
+  margin-right:0.5rem;
+  width:4rem;
 }
-#mintQuantity { 
+#mintQuantity {
   width:3rem;
   text-indent:0.5rem;
 }
-#mintButton { 
-  margin-left:1rem; 
+.mintButton, #mintButton {
+  margin-left:1rem;
+  margin-right:1.5rem; 
 }
 
-.chublinCard { 
+.chublinCard {
   float:left;
-  width:300px; 
+  width:300px;
 }
-.chublinDashboard { 
+.chublinDashboard {
   float:left;
-  width:436px; 
-  margin-left:24px; 
+  width:436px;
+  margin-left:24px;
 }
-.chublinTraitsContainer dl { 
+.chublinTraitsContainer dl {
   overflow:hidden;
 }
-.chublinTraitsContainer dt, .chublinTraitsContainer dd { 
-  float:left; 
-  width:140px; 
+.chublinTraitsContainer dt, .chublinTraitsContainer dd {
+  float:left;
+  width:140px;
   padding-bottom:0.25rem;
 }
-.chublinTraitsContainer dd { 
+.chublinTraitsContainer dd {
   margin-left:18px;
 }
-.chublinTraitsContainer dd::first-letter { 
+.chublinTraitsContainer dd::first-letter {
   text-transform:uppercase;
 }
-.chublinOwnerInfo { 
+.chublinOwnerInfo {
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
