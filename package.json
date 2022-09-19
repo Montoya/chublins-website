@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "connectkit": "^0.0.2",
     "ethers": "^5.7.0",
+    "merkletreejs": "^0.2.32",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",

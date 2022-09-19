@@ -9,6 +9,7 @@ const Header = () => {
         <img src={hexagon} className="Chublin-logo" alt="logo" />
         <h1>Chublins</h1>
         <NavLink to="/">Home</NavLink>
+        <NavLink to="/mint">Mint</NavLink>
         <NavLink to="guide">Guide</NavLink>
         <a href="https://twitter.com/ChublinsNFT">Twitter</a>
       </div>

@@ -22,7 +22,7 @@ root.render(
           <Route index element={<Update />}/>
           <Route path="guide" element={<Guide />} />
           <Route path="whitepaperRtwb" element={<Whitepaper />} />
-          <Route path="secretXbyz" element={<AllowListMint />}/>
+          <Route path="mint" element={<AllowListMint />}/>
           <Route path="secretPublicPlzg" element={<PublicMint />}/>
           <Route path="soldout" element={<Soldout />}/>
           <Route path="view" element={<View />}>

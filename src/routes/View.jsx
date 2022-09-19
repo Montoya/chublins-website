@@ -7,9 +7,10 @@ import {
   chain } from "wagmi";
 import { ConnectKitProvider, getDefaultClient } from "connectkit";
 import abiFile from '../abiFile.json';
+import contractAddress from '../contractAddress.json'; 
 
 const contractConfig = {
-  addressOrName: process.env.CONTRACT_ADDRESS,
+  addressOrName: contractAddress,
   contractInterface: abiFile,
 };
 
