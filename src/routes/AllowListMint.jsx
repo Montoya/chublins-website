@@ -54,15 +54,21 @@ const MintProgress = () => {
 const MintButton = () => {
   const { address, isDisconnected } = useAccount();
   const [merkleProof, setMerkleProof] = useState(false);
+  const [notInList, setNotInList] = useState(false);
   const [amount, setAmount] = useState(1);
   const [count, setCount] = useState(1);
   const mintPrice = ethers.utils.parseEther("0.01");
 
-  useEffect( () => {
+  useEffect(() => {
     fetch("https://lanyard.org/api/v1/proof?root=0xaa33c788faf218756b52829f65d58aa174703485a4399117fb20acc585d3732d&unhashedLeaf="+address)
       .then((response) => response.json())
       .then((data) => {
-        setMerkleProof(data?.proof);
+        if(data.error) {
+          setNotInList(true);
+        }
+        else {
+          setMerkleProof(data?.proof);
+        }
       });
   }, []);
 
@@ -94,6 +100,11 @@ const MintButton = () => {
       <button id="mintButton" className="inlineButton" disabled={isDisconnected||!write||!merkleProof} onClick={() => write?.({args: [amount,merkleProof]})}>
         {isLoading ? 'Minting...' : 'Mint!'}
       </button>
+      {notInList && (
+        <p>
+          Your address is not in the allow list. You can try again when the public mint is open.
+        </p>
+      )}
       {isSuccess && (
         <p>
           Successfully minted! View on <a href={`https://${blockscanner}/tx/${data?.hash}`}>Etherscan</a>
@@ -129,7 +140,7 @@ export default function Secret() {
     <WagmiConfig client={client}>
       <ConnectKitProvider theme="rounded" options={{embedGoogleFonts: true,}}>
         <div className="Page">
-          <h2>Mint is now open!</h2>
+          <h2>Allow List Mint is now open!</h2>
           <MintProgress />
           <FirstStep />
           <ConnectKitButton showBalance="true" />

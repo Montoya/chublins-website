@@ -1,43 +1,43 @@
 import { useParams } from 'react-router-dom';
-import { ethers } from 'ethers'; 
-import { 
-  WagmiConfig, 
-  createClient, 
-  useContractRead, 
-  useAccount, 
+import { ethers } from 'ethers';
+import {
+  WagmiConfig,
+  createClient,
+  useContractRead,
+  useAccount,
   chain } from "wagmi";
 import { ConnectKitButton, getDefaultClient } from "connectkit";
 import abiFile from '../abiFile.json';
 
 const contractConfig = {
-  addressOrName: '0x274E920503d5abfC8113a273bDBF2069C729c9cD',
+  addressOrName: '0x7034285f97FC9e3550fd7C041C32B7b4Bf7159C0',
   contractInterface: abiFile,
 };
 
 const client = createClient(
   getDefaultClient({
     appName: "Chublins",
-    infuraId: process.env.INFURA_ID, 
-    chains: [chain.mainnet]
-  }), 
-); 
+    infuraId: process.env.INFURA_ID,
+    chains: [chain.rinkeby]
+  }),
+);
 
 const useGetOwner = (tokenId) => {
   const { data, isSuccess } = useContractRead({
-    ...contractConfig, 
-    functionName: 'ownerOf', 
+    ...contractConfig,
+    functionName: 'ownerOf',
     args: tokenId
-  }); 
-  if(isSuccess) { 
-    return String(data); 
+  });
+  if(isSuccess) {
+    return String(data);
   }
-  else { 
-    return "Unknown"; 
+  else {
+    return "Unknown";
   }
 }
 
 const ManageToken = (props) => {
-  if(props.ownerAddress == props.userAddress) { 
+  if(props.ownerAddress == props.userAddress) {
     return (
       <>
         <h3>Manage</h3>
@@ -45,7 +45,7 @@ const ManageToken = (props) => {
       </>
     )
   }
-  else { 
+  else {
     return (
       <>
         <h3>Manage</h3>
@@ -55,25 +55,25 @@ const ManageToken = (props) => {
   }
 }
 
-export default function Token() { 
-  const { tokenId } = useParams(); 
-  const { address, isDisconnected } = useAccount(); 
+export default function Token() {
+  const { tokenId } = useParams();
+  const { address, isDisconnected } = useAccount();
   const { data, isSuccess } = useContractRead({
-    ...contractConfig, 
-    functionName: 'tokenURI', 
+    ...contractConfig,
+    functionName: 'tokenURI',
     args: tokenId
-  }); 
-  const tokenOwner = useGetOwner(tokenId); 
-  if(isSuccess) { 
-    const tokenURI = String(data); 
-    const tokenArray = tokenURI.split(','); 
-    const tokenJSONString = ethers.utils.toUtf8String(ethers.utils.base64.decode(tokenArray[1])); 
-    const tokenJSON = JSON.parse(tokenJSONString); 
-    const tokenName = "Chublin #"+tokenId;  
-    const imageType = tokenJSON.image.charAt(0)=='h' ? "PNG" : "SVG"; 
-    let licenseStatus = "ARR"; 
-    const openSeaURL = "https://opensea.io/assets/ethereum/"+contractConfig.addressOrName+"/"+tokenId; 
-    const looksRareURL = "https://looksrare.org/collections/"+contractConfig.addressOrName+"/"+tokenId; 
+  });
+  const tokenOwner = useGetOwner(tokenId);
+  if(isSuccess) {
+    const tokenURI = String(data);
+    const tokenArray = tokenURI.split(',');
+    const tokenJSONString = ethers.utils.toUtf8String(ethers.utils.base64.decode(tokenArray[1]));
+    const tokenJSON = JSON.parse(tokenJSONString);
+    const tokenName = "Chublin #"+tokenId;
+    const imageType = tokenJSON.image.charAt(0)=='h' ? "PNG" : "SVG";
+    let licenseStatus = "ARR";
+    const openSeaURL = "https://opensea.io/assets/ethereum/"+contractConfig.addressOrName+"/"+tokenId;
+    const looksRareURL = "https://looksrare.org/collections/"+contractConfig.addressOrName+"/"+tokenId;
     return (
       <div>
         <div className="chublinCard">
@@ -98,20 +98,20 @@ export default function Token() {
           <p>Is this your Chublin? Connect to manage it:</p>
           <ConnectKitButton />
           {!isDisconnected && (
-            <ManageToken 
-              ownerAddress={tokenOwner} 
-              userAddress={address} 
-              tokenId={tokenId} 
-              license={licenseStatus} 
+            <ManageToken
+              ownerAddress={tokenOwner}
+              userAddress={address}
+              tokenId={tokenId}
+              license={licenseStatus}
               imageType={imageType} />
           )}
         </div>
       </div>
     )
   }
-  else { 
+  else {
     return (
       <div>Not found. The token you tried to view may be invalid.</div>
     )
   }
-}; 
+};

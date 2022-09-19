@@ -4,14 +4,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.css';
 import App from './App';
 import Update from './routes/Update';
-import AllowListMint from './routes/AllowListMint';/*
+import AllowListMint from './routes/AllowListMint';
 import Guide from './routes/Guide';
-import Whitepaper from './routes/Whitepaper';
-import Mint from './routes/Mint';
+import Whitepaper from './routes/Whitepaper';/*
+import Mint from './routes/Mint';*/
 import Soldout from './routes/Soldout';
-
 import View from './routes/View';
-import Token from './routes/Token'; */
+import Token from './routes/Token';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -21,21 +20,17 @@ root.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Update />}/>
+          <Route path="guide" element={<Guide />} />
+          <Route path="whitepaper" element={<Whitepaper />} />
           <Route path="secret" element={<AllowListMint />}/>
+          <Route path="view" element={<View />}>
+            <Route path=":tokenId" element={<Token />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
 );
-
-/*
-
-          <Route path="guide" element={<Guide />} />
-          <Route path="view" element={<View />}>
-            <Route path=":tokenId" element={<Token />} />
-          </Route>
-          <Route path="whitepaper" element={<Whitepaper />} />
-*/
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
