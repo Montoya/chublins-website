@@ -11,6 +11,5 @@
     <ellipse cx="145" cy="5" rx="8" ry="8" style="fill:white"/>
     <ellipse cx="112" cy="20" rx="4" ry="4" style="fill:white"/>
 	<path d="M50,0 a1,0.9 0 0,0 60,0" class="lnrt" transform="translate(-10,100)"/>
-    
   </g>
 </svg>
