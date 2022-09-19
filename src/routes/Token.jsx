@@ -5,9 +5,10 @@ import {
   useAccount } from "wagmi";
 import { ConnectKitButton } from "connectkit";
 import abiFile from '../abiFile.json';
+import contractAddress from '../contractAddress.json'; 
 
 const contractConfig = {
-  addressOrName: '0x7034285f97FC9e3550fd7C041C32B7b4Bf7159C0',
+  addressOrName: contractAddress,
   contractInterface: abiFile,
 };
 
