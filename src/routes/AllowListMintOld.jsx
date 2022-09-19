@@ -6,6 +6,7 @@ import {
   createClient,
   useAccount,
   useContractRead,
+  usePrepareContractWrite,
   useContractWrite,
   useWaitForTransaction,
   chain } from "wagmi";
@@ -54,10 +55,11 @@ const MintButton = () => {
   const { address, isDisconnected } = useAccount();
   const [merkleProof, setMerkleProof] = useState(false);
   const [notInList, setNotInList] = useState(false);
+  const [amount, setAmount] = useState(1);
   const mintPrice = ethers.utils.parseEther("0.01");
 
   useEffect(() => {
-    fetch("https://lanyard.org/api/v1/proof?root=0x413f5958cf0ac66d093366114b624c2070fc17bcfc79b5924c18e30cfd21f078&unhashedLeaf="+address)
+    fetch("https://lanyard.org/api/v1/proof?root=0xaa33c788faf218756b52829f65d58aa174703485a4399117fb20acc585d3732d&unhashedLeaf="+address)
       .then((response) => response.json())
       .then((data) => {
         if(data.error) {
@@ -69,30 +71,33 @@ const MintButton = () => {
       });
   }, [address]);
 
-  const { data, error, isError, write } = useContractWrite({
-    mode: 'recklesslyUnprepared',
-    ...contractConfig, 
-    functionName: 'allowListMint'
-  }); 
+  const {
+    config,
+    error: prepareError,
+    isError: isPrepareError,
+  } = usePrepareContractWrite({
+    ...contractConfig,
+    functionName: 'allowListMint',
+    args: [amount,merkleProof],
+    overrides: {
+      value:mintPrice.mul(amount)
+    }
+  });
+  const { data, error, isError, write } = useContractWrite(config);
 
   const { isLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   });
- 
-  const mint = (q) => { 
-    write({
-      recklesslySetUnpreparedArgs: [q, merkleProof],
-      recklesslySetUnpreparedOverrides: {
-        value: mintPrice.mul(q)
-      }
-    }); 
-  }; 
+
+  const handleNumberInput = (e) => {
+    setAmount(parseInt(e.target.value));
+  };
   return (
     <div>
-      <button className="inlineButton mintButton" disabled={isDisconnected||!write||!merkleProof} onClick={() => mint(1)}>
-        {isLoading ? 'Minting...' : 'Mint 1 for 0.01 ETH'}
-      </button> <button className="inlineButton mintButton" disabled={isDisconnected||!write||!merkleProof} onClick={() => mint(2)}>
-        {isLoading ? 'Minting...' : 'Mint 2 for 0.02 ETH'}
+      <input id="mintQuantity" className="numberInput" type="number" min="1" max="2" value={amount} onChange={handleNumberInput}/>
+      for {1 * amount / 100} ETH
+      <button id="mintButton" className="inlineButton" disabled={isDisconnected||!write||!merkleProof} onClick={() => write?.({args: [amount,merkleProof]})}>
+        {isLoading ? 'Minting...' : 'Mint!'}
       </button>
       {notInList && (
         <p>
@@ -104,9 +109,8 @@ const MintButton = () => {
           Successfully minted! View on <a href={`https://${blockscanner}/tx/${data?.hash}`}>Etherscan</a>
         </p>
       )}
-      {isError && (
-        <p className="errorText">If you are reading this, it is probably because the mint is closed or because you tried to mint more than the maximum amount per wallet address.<br />
-          Error: {error?.message}</p>
+      {(isPrepareError || isError) && (
+        <p>Error: {(prepareError || error)?.message}</p>
       )}
     </div>
   )

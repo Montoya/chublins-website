@@ -62,6 +62,11 @@ code {
     monospace;
 }
 
+.errorText { 
+  opacity:0.75; 
+  overflow:hidden;  
+}
+
 .numberInput, .inlineButton { line-height:1.5; font-size:12pt; }
 .numberInput {
   margin-right:0.5rem;
@@ -71,9 +76,13 @@ code {
   width:3rem;
   text-indent:0.5rem;
 }
-.mintButton, #mintButton {
+.mintButton {
+  margin-right:1rem; 
+  font-size:1.25rem;
+  padding:4px 8px; 
+}
+#mintButton { 
   margin-left:1rem;
-  margin-right:1.5rem; 
 }
 
 .chublinCard {

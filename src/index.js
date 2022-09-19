@@ -5,9 +5,9 @@ import './index.css';
 import App from './App';
 import Update from './routes/Update';
 import AllowListMint from './routes/AllowListMint';
+import PublicMint from './routes/PublicMint';
 import Guide from './routes/Guide';
-import Whitepaper from './routes/Whitepaper';/*
-import Mint from './routes/Mint';*/
+import Whitepaper from './routes/Whitepaper';
 import Soldout from './routes/Soldout';
 import View from './routes/View';
 import Token from './routes/Token';
@@ -23,6 +23,8 @@ root.render(
           <Route path="guide" element={<Guide />} />
           <Route path="whitepaper" element={<Whitepaper />} />
           <Route path="secret" element={<AllowListMint />}/>
+          <Route path="secretPublic" element={<PublicMint />}/>
+          <Route path="soldout" element={<Soldout />}/>
           <Route path="view" element={<View />}>
             <Route path=":tokenId" element={<Token />} />
           </Route>

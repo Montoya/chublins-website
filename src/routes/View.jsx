@@ -5,7 +5,7 @@ import {
   createClient,
   useContractRead,
   chain } from "wagmi";
-import { ConnectKitProvider, ConnectKitButton, getDefaultClient } from "connectkit";
+import { ConnectKitProvider, getDefaultClient } from "connectkit";
 import abiFile from '../abiFile.json';
 
 const contractConfig = {
@@ -13,7 +13,6 @@ const contractConfig = {
   contractInterface: abiFile,
 };
 
-const blockscanner = 'rinkeby.etherscan.io';
 let maxTokens = 1;
 
 const client = createClient(

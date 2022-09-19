@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { ethers } from "ethers";
 import {
@@ -6,7 +6,6 @@ import {
   createClient,
   useAccount,
   useContractRead,
-  usePrepareContractWrite,
   useContractWrite,
   useWaitForTransaction,
   chain } from "wagmi";
@@ -29,7 +28,7 @@ const client = createClient(
 );
 
 const MintProgress = () => {
-  const { data, isError, isLoading } = useContractRead({
+  const { data } = useContractRead({
     addressOrName: '0x7034285f97FC9e3550fd7C041C32B7b4Bf7159C0',
     contractInterface: abiFile,
     functionName: 'totalSupply'
@@ -53,45 +52,41 @@ const MintProgress = () => {
 
 const MintButton = () => {
   const { isDisconnected } = useAccount();
-  const [amount, setAmount] = useState(1);
-  const [count, setCount] = useState(1);
   const mintPrice = ethers.utils.parseEther("0.01");
 
-  const {
-    config,
-    error: prepareError,
-    isError: isPrepareError,
-  } = usePrepareContractWrite({
-    ...contractConfig,
-    functionName: 'mint',
-    args: amount,
-    overrides: {
-      value:mintPrice.mul(amount)
-    }
-  });
-  const { data, error, isError, write } = useContractWrite(config);
+  const { data, error, isError, write } = useContractWrite({
+    mode: 'recklesslyUnprepared',
+    ...contractConfig, 
+    functionName: 'mint'
+  }); 
 
   const { isLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   });
-
-  const handleNumberInput = (e) => {
-    setAmount(parseInt(e.target.value));
-  };
+ 
+  const mint = (q) => { 
+    write({
+      recklesslySetUnpreparedArgs: [q],
+      recklesslySetUnpreparedOverrides: {
+        value: mintPrice.mul(q)
+      }
+    }); 
+  }; 
   return (
     <div>
-      <input id="mintQuantity" className="numberInput" type="number" min="1" max="2" value={amount} onChange={handleNumberInput}/>
-      for {1 * amount / 100} ETH
-      <button id="mintButton" className="inlineButton" disabled={isDisconnected||!write} onClick={() => write?.({args: [amount]})}>
-        {isLoading ? 'Minting...' : 'Mint!'}
+      <button className="inlineButton mintButton" disabled={isDisconnected||!write} onClick={() => mint(1)}>
+        {isLoading ? 'Minting...' : 'Mint 1 for 0.01 ETH'}
+      </button> <button className="inlineButton mintButton" disabled={isDisconnected||!write} onClick={() => mint(2)}>
+        {isLoading ? 'Minting...' : 'Mint 2 for 0.02 ETH'}
       </button>
       {isSuccess && (
         <p>
           Successfully minted! View on <a href={`https://${blockscanner}/tx/${data?.hash}`}>Etherscan</a>
         </p>
       )}
-      {(isPrepareError || isError) && (
-        <p>Error: {(prepareError || error)?.message}</p>
+      {(isError) && (
+        <p className="errorText">If you are reading this, it is probably because the mint is closed or because you already minted the maximum amount for your wallet address.<br />
+          Error: {error?.message}</p>
       )}
     </div>
   )

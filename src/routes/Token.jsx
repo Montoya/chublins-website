@@ -1,26 +1,15 @@
 import { useParams } from 'react-router-dom';
 import { ethers } from 'ethers';
 import {
-  WagmiConfig,
-  createClient,
   useContractRead,
-  useAccount,
-  chain } from "wagmi";
-import { ConnectKitButton, getDefaultClient } from "connectkit";
+  useAccount } from "wagmi";
+import { ConnectKitButton } from "connectkit";
 import abiFile from '../abiFile.json';
 
 const contractConfig = {
   addressOrName: '0x7034285f97FC9e3550fd7C041C32B7b4Bf7159C0',
   contractInterface: abiFile,
 };
-
-const client = createClient(
-  getDefaultClient({
-    appName: "Chublins",
-    infuraId: process.env.INFURA_ID,
-    chains: [chain.rinkeby]
-  }),
-);
 
 const useGetOwner = (tokenId) => {
   const { data, isSuccess } = useContractRead({
@@ -37,7 +26,7 @@ const useGetOwner = (tokenId) => {
 }
 
 const ManageToken = (props) => {
-  if(props.ownerAddress == props.userAddress) {
+  if(props.ownerAddress === props.userAddress) {
     return (
       <>
         <h3>Manage</h3>
@@ -70,7 +59,7 @@ export default function Token() {
     const tokenJSONString = ethers.utils.toUtf8String(ethers.utils.base64.decode(tokenArray[1]));
     const tokenJSON = JSON.parse(tokenJSONString);
     const tokenName = "Chublin #"+tokenId;
-    const imageType = tokenJSON.image.charAt(0)=='h' ? "PNG" : "SVG";
+    const imageType = tokenJSON.image.charAt(0)==='h' ? "PNG" : "SVG";
     let licenseStatus = "ARR";
     const openSeaURL = "https://opensea.io/assets/ethereum/"+contractConfig.addressOrName+"/"+tokenId;
     const looksRareURL = "https://looksrare.org/collections/"+contractConfig.addressOrName+"/"+tokenId;
@@ -84,7 +73,7 @@ export default function Token() {
             <dl>
               <dt key="dt">Image Type</dt><dd key="dd">{imageType}</dd>
               {tokenJSON.attributes.map((pair, i) => {
-                if(pair.trait_type=="License") { licenseStatus = pair.value; }
+                if(pair.trait_type==="License") { licenseStatus = pair.value; }
                 return (
                   <><dt key={`dt${i}`}>{pair.trait_type}</dt><dd key={`dd${i}`}>{pair.value}</dd></>
                 )
