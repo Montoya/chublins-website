@@ -13,7 +13,7 @@ import { ConnectKitProvider, ConnectKitButton, getDefaultClient } from "connectk
 import abiFile from '../abiFile.json';
 
 const contractConfig = {
-  addressOrName: '0x7034285f97FC9e3550fd7C041C32B7b4Bf7159C0',
+  addressOrName: process.env.CONTRACT_ADDRESS,
   contractInterface: abiFile,
 };
 
@@ -23,17 +23,16 @@ const client = createClient(
   getDefaultClient({
     appName: "Chublins",
     infuraId: process.env.INFURA_ID,
-    chains: [chain.rinkeby]
+    chains: [chain.mainnet]
   }),
 );
 
 const MintProgress = () => {
   const { data } = useContractRead({
-    addressOrName: '0x7034285f97FC9e3550fd7C041C32B7b4Bf7159C0',
-    contractInterface: abiFile,
+    ...contractConfig, 
     functionName: 'totalSupply'
   });
-  const totalSupply = parseInt(data);
+  const totalSupply = parseInt(data) || 0;
   if(totalSupply===5556) {
     return (
       <p>
@@ -105,7 +104,7 @@ const MintButton = () => {
         </p>
       )}
       {isError && (
-        <p className="errorText">If you are reading this, it is probably because the mint is closed or because you tried to mint more than the maximum amount per wallet address.<br />
+        <p className="errorText">If you are reading this, it is probably because your address is not in the allowlist, the mint is closed, or because you tried to mint more than the maximum amount per wallet address.<br />
           Error: {error?.message}</p>
       )}
     </div>

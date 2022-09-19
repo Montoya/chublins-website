@@ -13,7 +13,7 @@ import { ConnectKitProvider, ConnectKitButton, getDefaultClient } from "connectk
 import abiFile from '../abiFile.json';
 
 const contractConfig = {
-  addressOrName: '0x7034285f97FC9e3550fd7C041C32B7b4Bf7159C0',
+  addressOrName: process.env.CONTRACT_ADDRESS,
   contractInterface: abiFile,
 };
 
@@ -29,7 +29,7 @@ const client = createClient(
 
 const MintProgress = () => {
   const { data } = useContractRead({
-    addressOrName: '0x7034285f97FC9e3550fd7C041C32B7b4Bf7159C0',
+    ...contractConfig, 
     contractInterface: abiFile,
     functionName: 'totalSupply'
   });

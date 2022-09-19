@@ -21,9 +21,9 @@ root.render(
         <Route path="/" element={<App />}>
           <Route index element={<Update />}/>
           <Route path="guide" element={<Guide />} />
-          <Route path="whitepaper" element={<Whitepaper />} />
-          <Route path="secret" element={<AllowListMint />}/>
-          <Route path="secretPublic" element={<PublicMint />}/>
+          <Route path="whitepaperRtwb" element={<Whitepaper />} />
+          <Route path="secretXbyz" element={<AllowListMint />}/>
+          <Route path="secretPublicPlzg" element={<PublicMint />}/>
           <Route path="soldout" element={<Soldout />}/>
           <Route path="view" element={<View />}>
             <Route path=":tokenId" element={<Token />} />
