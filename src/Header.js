@@ -10,6 +10,7 @@ const Header = () => {
         <h1>Chublins</h1>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/mint">Mint</NavLink>
+        <NavLink to="view">Viewer</NavLink>
         <NavLink to="guide">Guide</NavLink>
         <a href="https://opensea.io/collection/chublins-reborn">OpenSea</a>
         <a href="https://twitter.com/ChublinsNFT">Twitter</a>
@@ -17,12 +18,5 @@ const Header = () => {
     </nav>
   );
 };
-
-/*
-
-        <NavLink to="/">Mint</NavLink>
-        <NavLink to="view">Viewer</NavLink>
-
-*/
 
 export default Header;
