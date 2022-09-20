@@ -24,7 +24,7 @@ const client = createClient(
   getDefaultClient({
     appName: "Chublins",
     infuraId: process.env.INFURA_ID,
-    chains: [chain.rinkeby]
+    chains: [chain.mainnet]
   }),
 );
 
@@ -116,7 +116,7 @@ export default function Secret() {
     <WagmiConfig client={client}>
       <ConnectKitProvider theme="rounded" options={{embedGoogleFonts: true,}}>
         <div className="Page">
-          <h2>Mint is now open!</h2>
+          <h2>Public Mint is now open!</h2>
           <MintProgress />
           <FirstStep />
           <ConnectKitButton showBalance="true" />

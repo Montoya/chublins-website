@@ -9,7 +9,6 @@ const Header = () => {
         <img src={hexagon} className="Chublin-logo" alt="logo" />
         <h1>Chublins</h1>
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/mint">Mint</NavLink>
         <NavLink to="view">Viewer</NavLink>
         <NavLink to="guide">Guide</NavLink>
         <a href="https://opensea.io/collection/chublins-reborn">OpenSea</a>

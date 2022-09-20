@@ -19,11 +19,10 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<Update />}/>
+          <Route index element={<PublicMint />}/>
           <Route path="guide" element={<Guide />} />
           <Route path="whitepaperRtwb" element={<Whitepaper />} />
-          <Route path="mint" element={<AllowListMint />}/>
-          <Route path="secretPublicPlzg" element={<PublicMint />}/>
+          <Route path="mint" element={<PublicMint />}/>
           <Route path="soldout" element={<Soldout />}/>
           <Route path="view" element={<View />}>
             <Route path=":tokenId" element={<Token />} />
