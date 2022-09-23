@@ -35,7 +35,7 @@ const MintProgress = () => {
     functionName: 'totalSupply'
   });
   const totalSupply = parseInt(data);
-  if(totalSupply===5556) {
+  if(totalSupply===1112) {
     return (
       <p>
         <Navigate to="/soldout" />
@@ -45,7 +45,7 @@ const MintProgress = () => {
   else {
     return (
       <p>
-        Total minted: {totalSupply} of 5,556
+        Total minted: {totalSupply} of 1,112
       </p>
     )
   }
