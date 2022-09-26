@@ -19,7 +19,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<PublicMint />}/>
+          <Route index element={<Soldout />}/>
           <Route path="guide" element={<Guide />} />
           <Route path="whitepaperRtwb" element={<Whitepaper />} />
           <Route path="mint" element={<PublicMint />}/>
