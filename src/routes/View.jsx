@@ -66,7 +66,7 @@ export default function View() {
         <div className="Page">
           <h2>Chublins Viewer</h2>
           <TotalSupply />
-          <p>Enter the token ID of a Chublin to view it. If you are the owner of that Chublin, you will be able to manage it too.</p>
+          <p>Enter the token ID of a Chublin to view it. If you own it, you will be able to manage it too.</p>
           <ViewButton />
           <Outlet />
         </div>

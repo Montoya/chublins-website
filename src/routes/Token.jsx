@@ -31,7 +31,7 @@ const ManageToken = (props) => {
     return (
       <>
         <h3>Manage</h3>
-        <p>You are the owner of this Chublin! <em>Management features are coming soon...</em></p>
+        <p>You own this Chublin! <em>Management features are coming soon...</em></p>
       </>
     )
   }
@@ -39,7 +39,7 @@ const ManageToken = (props) => {
     return (
       <>
         <h3>Manage</h3>
-        <p>You are not the owner of this Chublin, so you cannot manage it!</p>
+        <p>You do not own this Chublin, so you cannot manage it!</p>
       </>
     )
   }
