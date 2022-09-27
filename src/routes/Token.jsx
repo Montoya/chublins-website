@@ -64,6 +64,7 @@ export default function Token() {
     let licenseStatus = "ARR";
     const openSeaURL = "https://opensea.io/assets/ethereum/"+contractConfig.addressOrName+"/"+tokenId;
     const looksRareURL = "https://looksrare.org/collections/"+contractConfig.addressOrName+"/"+tokenId;
+    const pngURL = "https://chublins.xyz/png/"+tokenId+".png"; 
     return (
       <div>
         <div className="chublinCard">
@@ -84,7 +85,7 @@ export default function Token() {
         </div>
         <div className="chublinDashboard">
           <p className="chublinOwnerInfo">Owner: <span className="chublinOwnerAddress">{tokenOwner}</span></p>
-          <p><a href={openSeaURL}>View on OpenSea</a> | <a href={looksRareURL}>View on LooksRare</a></p>
+          <p>View on <a href={openSeaURL}>OpenSea</a> | <a href={looksRareURL}>LooksRare</a> | <a href={pngURL} target="_blank">Download PNG</a></p>
           <p>Is this your Chublin? Connect to manage it:</p>
           <ConnectKitButton />
           {!isDisconnected && (
