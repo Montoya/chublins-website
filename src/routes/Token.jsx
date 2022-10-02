@@ -15,6 +15,8 @@ const contractConfig = {
   contractInterface: abiFile,
 };
 
+let imageType = "SVG"; 
+
 const useGetOwner = (tokenId) => {
   const { data, isSuccess } = useContractRead({
     ...contractConfig,
@@ -46,17 +48,22 @@ const ToggleOnChainArt = (props) => {
   });
 
   let switchButtonText = props.imageType==="PNG" ? 'Switch to on-chain SVG' : 'Switch to off-chain PNG'; 
+  if(isSuccess) { 
+    imageType = props.imageType==="PNG" ? "SVG" : "PNG"; 
+  }
   return (
     <>
       {!isSuccess && ( 
-        <button id="toggleButton" className="inlineButton" disabled={!write||!isLoading} onClick={() => write?.()}>
+        <button id="toggleButton" className="inlineButton" disabled={!write||isLoading} onClick={() => write?.()}>
           {isLoading ? 'Switching...' : switchButtonText}
         </button>
       )}
       {isSuccess && (
-        <p>
-          Successfully switched! Remember to refresh the metadata on OpenSea to make sure the change is reflected on other platforms like Twitter.
-        </p>
+        <>
+          <p>
+            Successfully switched! Remember to refresh the metadata on OpenSea to make sure the change is reflected on other platforms like Twitter.
+          </p>
+        </>
       )}
       {(isPrepareError || isError) && (
         <p>Error: {(prepareError || error)?.message}</p>
@@ -71,10 +78,13 @@ const ManageToken = (props) => {
       <>
         <h3>Manage</h3>
         <p>You own this Chublin!</p>
-        <ToggleOnChainArt 
-          tokenId={props.tokenId} 
-          imageType={props.imageType}
-          />
+        <p>
+          <ToggleOnChainArt 
+            tokenId={props.tokenId} 
+            imageType={props.imageType}
+            />
+        </p>
+        
       </>
     )
   }
@@ -103,7 +113,7 @@ export default function Token() {
     const tokenJSONString = ethers.utils.toUtf8String(ethers.utils.base64.decode(tokenArray[1]));
     const tokenJSON = JSON.parse(tokenJSONString);
     const tokenName = "Chublin #"+tokenId;
-    const imageType = tokenJSON.image.charAt(0)==='h' ? "PNG" : "SVG";
+    imageType = tokenJSON.image.charAt(0)==='h' ? "PNG" : "SVG";
     let licenseStatus = "ARR";
     const openSeaURL = "https://opensea.io/assets/ethereum/"+contractConfig.addressOrName+"/"+tokenId;
     const looksRareURL = "https://looksrare.org/collections/"+contractConfig.addressOrName+"/"+tokenId;
