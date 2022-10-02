@@ -37,7 +37,7 @@ const ToggleOnChainArt = (props) => {
   } = usePrepareContractWrite({
     ...contractConfig,
     functionName: 'toggleOnChainArt',
-    args: [tokenId]
+    args: [props.tokenId]
   });
   let { data, error, isError, write } = useContractWrite(config);
 
