@@ -48,9 +48,11 @@ const ToggleOnChainArt = (props) => {
   let switchButtonText = props.imageType==="PNG" ? 'Switch to on-chain SVG' : 'Switch to off-chain PNG'; 
   return (
     <>
-      <button id="toggleButton" className="inlineButton" disabled={!write} onClick={() => write?.()}>
-        {isLoading ? 'Switching...' : switchButtonText}
-      </button>
+      {!isSuccess && ( 
+        <button id="toggleButton" className="inlineButton" disabled={!write||!isLoading} onClick={() => write?.()}>
+          {isLoading ? 'Switching...' : switchButtonText}
+        </button>
+      )}
       {isSuccess && (
         <p>
           Successfully switched! Remember to refresh the metadata on OpenSea to make sure the change is reflected on other platforms like Twitter.
@@ -69,7 +71,8 @@ const ManageToken = (props) => {
       <>
         <h3>Manage</h3>
         <p>You own this Chublin!</p>
-        <ToggleOnChainArt
+        <ToggleOnChainArt 
+          tokenId={props.tokenId} 
           imageType={props.imageType}
           />
       </>
