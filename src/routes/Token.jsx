@@ -1,7 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { ethers } from 'ethers';
 import {
-  useContractRead,
+  useContractRead, 
+  usePrepareContractWrite,
+  useContractWrite,
+  useWaitForTransaction,
   useAccount } from "wagmi";
 import { ConnectKitButton } from "connectkit";
 import abiFile from '../abiFile.json';
@@ -26,12 +29,49 @@ const useGetOwner = (tokenId) => {
   }
 }
 
+const ToggleOnChainArt = (props) => { 
+  let {
+    config,
+    error: prepareError,
+    isError: isPrepareError,
+  } = usePrepareContractWrite({
+    ...contractConfig,
+    functionName: 'toggleOnChainArt',
+    args: [tokenId]
+  });
+  let { data, error, isError, write } = useContractWrite(config);
+
+  let { isLoading, isSuccess } = useWaitForTransaction({
+    hash: data?.hash,
+  });
+
+  let switchButtonText = props.imageType==="PNG" ? 'Switch to on-chain SVG' : 'Switch to off-chain PNG'; 
+  return (
+    <>
+      <button id="toggleButton" className="inlineButton" disabled={!write} onClick={() => write?.()}>
+        {isLoading ? 'Switching...' : switchButtonText}
+      </button>
+      {isSuccess && (
+        <p>
+          Successfully switched! Remember to refresh the metadata on OpenSea to make sure the change is reflected on other platforms like Twitter.
+        </p>
+      )}
+      {(isPrepareError || isError) && (
+        <p>Error: {(prepareError || error)?.message}</p>
+      )}
+    </>
+  )
+}
+
 const ManageToken = (props) => {
   if(props.ownerAddress === props.userAddress) {
     return (
       <>
         <h3>Manage</h3>
-        <p>You own this Chublin! <em>Management features are coming soon...</em></p>
+        <p>You own this Chublin!</p>
+        <ToggleOnChainArt
+          imageType={props.imageType}
+          />
       </>
     )
   }
