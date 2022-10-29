@@ -60,13 +60,66 @@ const ToggleOnChainArt = (props) => {
       )}
       {isSuccess && (
         <>
-          <p>
-            Successfully switched! Remember to refresh the metadata on OpenSea to make sure the change is reflected on other platforms like Twitter.
-          </p>
+          Successfully switched! Remember to refresh the metadata on OpenSea to make sure the change is reflected on other platforms like Twitter.
         </>
       )}
       {(isPrepareError || isError) && (
-        <p>Error: {(prepareError || error)?.message}</p>
+        <>Error: {(prepareError || error)?.message}</>
+      )}
+    </>
+  )
+}
+
+const ModifyLicense = (props) => {
+  let licenseLevel = 0; 
+  if(props.license==="CC BY-NC") { 
+    licenseLevel = 1; 
+  }
+  else if(props.license==="CC0") { 
+    licenseLevel = 2; 
+  }
+
+  const { data, error, isError, write } = useContractWrite({
+    mode: 'recklesslyUnprepared',
+    ...contractConfig, 
+    functionName: 'modifyLicense'
+  }); 
+
+  const { isLoading, isSuccess } = useWaitForTransaction({
+    hash: data?.hash,
+  });
+ 
+  const setLicense = (level) => { 
+    write({
+      recklesslySetUnpreparedArgs: [props.tokenId, level],
+    }); 
+  }; 
+  return (
+    <>
+      {!isSuccess && licenseLevel<2 && (
+        <><em>Remember, the below operations cannot be reversed! 
+          Only do this if you are certain you want to permanently change the licensing for this Chublin.</em><br/><br/></>
+      )}
+      {!isSuccess && licenseLevel<1 && (
+        <><button className="inlineButton setLicenseButton" disabled={!write||isLoading} onClick={() => setLicense(1)}>
+          {isLoading ? 'Changing...' : 'Change license to CC BY-NC'}
+        </button><br/><br/></>
+      )}
+      {!isSuccess && licenseLevel<2 && ( 
+        <button className="inlineButton setLicenseButton" disabled={!write||isLoading} onClick={() => setLicense(2)}>
+          {isLoading ? 'Changing...' : 'Change license to CC0'}
+        </button>
+      )}
+      {licenseLevel>1 && (
+        <em>This Chublin is licensed CC0 (public domain); the license cannot be modified further.</em>
+      )}
+      {isSuccess && (
+        <>
+          Successfully changed license level! Remember to refresh the metadata on OpenSea to make sure the change is reflected there too.
+        </>
+      )}
+      {isError && (
+        <>Error: {error?.message}</>
       )}
     </>
   )
@@ -84,7 +137,12 @@ const ManageToken = (props) => {
             imageType={props.imageType}
             />
         </p>
-        
+        <p>
+          <ModifyLicense 
+            tokenId={props.tokenId} 
+            license={props.license} 
+            />
+        </p>
       </>
     )
   }
@@ -112,9 +170,13 @@ export default function Token() {
     const tokenArray = tokenURI.split(',');
     const tokenJSONString = ethers.utils.toUtf8String(ethers.utils.base64.decode(tokenArray[1]));
     const tokenJSON = JSON.parse(tokenJSONString);
+    let licenseStatus = "ARR";
+    tokenJSON.attributes.map((pair, i) => { 
+      if(pair.trait_type==="License") { licenseStatus = pair.value; }
+      return true;
+    }); 
     const tokenName = "Chublin #"+tokenId;
     imageType = tokenJSON.image.charAt(0)==='h' ? "PNG" : "SVG";
-    let licenseStatus = "ARR";
     const openSeaURL = "https://opensea.io/assets/ethereum/"+contractConfig.addressOrName+"/"+tokenId;
     const looksRareURL = "https://looksrare.org/collections/"+contractConfig.addressOrName+"/"+tokenId;
     const pngURL = "https://chublins.xyz/png/"+tokenId+".png"; 
@@ -128,7 +190,6 @@ export default function Token() {
             <dl>
               <dt key="dt">Image Type</dt><dd key="dd">{imageType}</dd>
               {tokenJSON.attributes.map((pair, i) => {
-                if(pair.trait_type==="License") { licenseStatus = pair.value; }
                 return (
                   <><dt key={`dt${i}`}>{pair.trait_type}</dt><dd key={`dd${i}`}>{pair.value}</dd></>
                 )
@@ -138,7 +199,7 @@ export default function Token() {
         </div>
         <div className="chublinDashboard">
           <p className="chublinOwnerInfo">Owner: <span className="chublinOwnerAddress">{tokenOwner}</span></p>
-          <p>View on <a href={openSeaURL}>OpenSea</a> | <a href={looksRareURL}>LooksRare</a> | <a href={pngURL} target="_blank">Download PNG</a></p>
+          <p>View on <a href={openSeaURL}>OpenSea</a> | <a href={looksRareURL}>LooksRare</a> | <a href={pngURL}>Download PNG</a></p>
           <p>Is this your Chublin? Connect to manage it:</p>
           <ConnectKitButton />
           {!isDisconnected && (

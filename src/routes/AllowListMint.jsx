@@ -28,11 +28,11 @@ const tree = new MerkleTree(
   utils.keccak256,
   { sortPairs: true },
 );
-
+/*
 function getMerkleRoot() {
   return tree.getRoot().toString('hex');
 }
-
+*/
 function getMerkleProof(address) {
   const hashedAddress = utils.keccak256(address);
   return tree.getHexProof(hashedAddress);

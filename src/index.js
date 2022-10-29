@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.css';
 import App from './App';
-import Update from './routes/Update';
-import AllowListMint from './routes/AllowListMint';
 import PublicMint from './routes/PublicMint';
 import Guide from './routes/Guide';
 import Whitepaper from './routes/Whitepaper';
