@@ -1,6 +1,6 @@
 export default function Guide() {
   return (
-    <div class="Page">
+    <div className="Page">
       <h2>Guide</h2>
       <h3>About Chublins</h3>
       <p>Chublins is an art project inspired by and born in online culture. The artwork is a celebration of how we express ourselves within the medium by which we connect, with references and homages to Emoticons, Anime, and even other NFT collections. The artwork for Chublins is generated and stored entirely onchain, comprised of over 50 unique traits combined in a variety of ways. Furthermore, Chublins incorporates two innovations at the contract level which set it apart from other NFT projects:</p>
