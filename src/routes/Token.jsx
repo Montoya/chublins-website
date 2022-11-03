@@ -177,8 +177,8 @@ export default function Token() {
     }); 
     const tokenName = "Chublin #"+tokenId;
     imageType = tokenJSON.image.charAt(0)==='h' ? "PNG" : "SVG";
-    const openSeaURL = "https://opensea.io/assets/ethereum/"+contractConfig.addressOrName+"/"+tokenId;
-    const looksRareURL = "https://looksrare.org/collections/"+contractConfig.addressOrName+"/"+tokenId;
+    const openSeaURL = "https://opensea.io/assets/ethereum/"+contractConfig.address+"/"+tokenId;
+    const looksRareURL = "https://looksrare.org/collections/"+contractConfig.address+"/"+tokenId;
     const pngURL = "https://chublins.xyz/png/"+tokenId+".png"; 
     return (
       <div>
