@@ -11,8 +11,8 @@ import abiFile from '../abiFile.json';
 import contractAddress from '../contractAddress.json'; 
 
 const contractConfig = {
-  addressOrName: contractAddress,
-  contractInterface: abiFile,
+  address: contractAddress,
+  abi: abiFile,
 };
 
 let imageType = "SVG"; 
@@ -21,7 +21,7 @@ const useGetOwner = (tokenId) => {
   const { data, isSuccess } = useContractRead({
     ...contractConfig,
     functionName: 'ownerOf',
-    args: tokenId
+    args: [tokenId]
   });
   if(isSuccess) {
     return String(data);
@@ -162,7 +162,7 @@ export default function Token() {
   const { data, isSuccess } = useContractRead({
     ...contractConfig,
     functionName: 'tokenURI',
-    args: tokenId
+    args: [tokenId]
   });
   const tokenOwner = useGetOwner(tokenId);
   if(isSuccess) {

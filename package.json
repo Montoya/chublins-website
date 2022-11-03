@@ -1,6 +1,6 @@
 {
   "name": "chublins-website",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "homepage": "https://chublins.com",
   "private": true,
   "dependencies": {
@@ -14,7 +14,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
-    "wagmi": "^0.6.8",
+    "wagmi": "^0.7.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

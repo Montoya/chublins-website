@@ -10,8 +10,8 @@ import abiFile from '../abiFile.json';
 import contractAddress from '../contractAddress.json'; 
 
 const contractConfig = {
-  addressOrName: contractAddress,
-  contractInterface: abiFile,
+  address: contractAddress,
+  abi: abiFile,
 };
 
 let maxTokens = 1;
@@ -26,8 +26,8 @@ const client = createClient(
 
 const TotalSupply = () => {
   const { data, isSuccess } = useContractRead({
-    addressOrName: contractConfig.addressOrName,
-    contractInterface: contractConfig.contractInterface,
+    address: contractConfig.address,
+    abi: contractConfig.abi,
     functionName: 'totalSupply'
   });
   const totalSupply = parseInt(data);
