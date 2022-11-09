@@ -19,7 +19,7 @@ let maxTokens = 1;
 const client = createClient(
   getDefaultClient({
     appName: "Chublins",
-    infuraId: process.env.INFURA_ID,
+    infuraId: process.env.REACT_APP_INFURA_ID,
     chains: [chain.mainnet]
   }),
 );
